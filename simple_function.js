@@ -12,3 +12,23 @@ function oddEvent(){
 }
 
 oddEvent()
+
+console.log('\n');
+
+function login(username, password){
+
+	var _login = "username: "+username+" password:"+password;
+	return _login;
+}
+
+console.log(login("mbr-sagor", "s12345"));
+
+console.log('\n');
+
+
+var num = 123456789;
+function LocalGlobal(){
+	console.log(num);
+}
+
+LocalGlobal()
