@@ -3,55 +3,23 @@
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
 
-## Prerequisites
+## Ember basic command line
+###### Crete new project and run
+```
+ember new demoProject
+cd demoProject
+ember serve or ember s
+```
+If you follow the command line hopefully project will create and run your local development server but 1st will be install `node.js` and `NPM` in your system.
 
-You will need the following things properly installed on your computer.
+###### Create new route.
+You may follow the command line `ember generate route doute_name` or `ember g route route_name`
 
-* [Git](https://git-scm.com/)
-* [Node.js](https://nodejs.org/) (with npm)
-* [Ember CLI](https://ember-cli.com/)
-* [Google Chrome](https://google.com/chrome/)
+###### Delete route.
+You may follow the command line `ember destroy route doute_name` or `ember d route route_name`
 
-## Installation
+###### Create new component
+You may follow the command line `ember generate component demo` or `ember g component demo`
 
-* `git clone <repository-url>` this repository
-* `cd udacity-meals312`
-* `npm install`
-
-## Running / Development
-
-* `ember serve`
-* Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit your tests at [http://localhost:4200/tests](http://localhost:4200/tests).
-
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
-### Running Tests
-
-* `ember test`
-* `ember test --server`
-
-### Linting
-
-* `npm run lint:hbs`
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-### Building
-
-* `ember build` (development)
-* `ember build --environment production` (production)
-
-### Deploying
-
-Specify what it takes to deploy your app.
-
-## Further Reading / Useful Links
-
-* [ember.js](https://emberjs.com/)
-* [ember-cli](https://ember-cli.com/)
-* Development Browser Extensions
-  * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
-  * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
+###### Delete component.
+You may follow the command line `ember destroy component demo` or `ember d component demo`
