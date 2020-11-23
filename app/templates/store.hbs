@@ -1,0 +1,24 @@
+{{!-- {{log model}} --}}
+{{# each model as | item |}}
+    <section class="row row-group {{item.color}} bricks">
+        <h2>{{ item.color }}</h2>
+            <table class="table table-sm table-dark">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                {{#each item.bricks as | brick |}}
+                <tbody>
+                    <tr>
+                        <td>{{ brick.size }}</td>
+                        <td>{{ brick.quantity }}</td>
+                    </tr>
+                </tbody>
+                {{/each}}
+            </table>
+    </section>
+{{/each}}
+
+{{outlet}}

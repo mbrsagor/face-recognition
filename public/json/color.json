@@ -1,0 +1,30 @@
+[
+    {
+        "color" : "Red",
+        "bricks" : [
+            {"size": " 2 x 2", "quantity": 30},
+            {"size": " 1 x 1", "quantity": 10}
+        ],
+        "onSales" : false
+    },
+    {
+        "color" : "Blue",
+        "bricks" : [
+            {"size": " 2 x 2", "quantity": 30},
+            {"size": " 9 x 1", "quantity": 10},
+            {"size": " 1 x 6", "quantity": 44},
+            {"size": " 2 x 3", "quantity": 50},
+            {"size": " 3 x 3", "quantity": 90},
+            {"size": " 4 x 4", "quantity": 120}
+        ],
+        "onSales" : false
+    },
+    {
+        "color" : "Red",
+        "bricks" : [
+            {"size": " 2 x 2", "quantity": 30},
+            {"size": " 1 x 1", "quantity": 10}
+        ],
+        "onSales" : true
+    }
+]
