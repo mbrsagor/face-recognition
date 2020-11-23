@@ -10,7 +10,16 @@ ember new demoProject
 cd demoProject
 ember serve or ember s
 ```
+```base
+localhost:4200
+```
 If you follow the command line hopefully project will create and run your local development server but 1st will be install `node.js` and `NPM` in your system.
+
+###### Check Ember all command.
+You may follow the command line `ember help` or `ember --help`
+
+###### Ember server change port
+You may follow the command line `ember server --port 9001` or `ember s -p 9001`
 
 ###### Create new route.
 You may follow the command line `ember generate route doute_name` or `ember g route route_name`
@@ -61,3 +70,15 @@ Router.map(function() {
 });
 
 ```
+Here, `menu` should be render in `HTML` template like `<LinkTo @route='menu'>Menu</LinkTo>` and `menu-list` will show browser below the example:
+```
+localhost:4200/menu-list
+```
+
+The last one example is dynamic and nasted route it's is a awesome routing system in `ember.JS`.
+```zsh
+localhost:4200/item/t-shart
+localhost:4200/item/mobile-phone
+localhost:4200/item/tv
+```
+Here you may pass name, id, etc I mean whatever you want. So it's a awesome for dynamic route. 
