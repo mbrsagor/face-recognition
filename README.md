@@ -50,3 +50,14 @@ You may follow the command line `ember generate controller demo` or `ember g con
 
 ###### Delete Controller.
 You may follow the command line `ember destroy controller demo` or `ember d controller demo`
+
+### Route and nasted route with template basic example
+```javascript
+Router.map(function() {
+  this.route('menu', {path:'menu-list'});
+  this.route('item', {path: 'item/:item_name'}, function() {
+    this.route('nutration');
+  });
+});
+
+```
