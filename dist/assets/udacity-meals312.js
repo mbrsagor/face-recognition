@@ -702,7 +702,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("udacity-meals312/app")["default"].create({"name":"udacity-meals312","version":"0.0.0+e3c47682"});
+            require("udacity-meals312/app")["default"].create({"name":"udacity-meals312","version":"0.0.0"});
           }
         
 //# sourceMappingURL=udacity-meals312.map

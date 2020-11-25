@@ -60,3 +60,4 @@ export default Route.extend({
         ];
     }
 });
+
