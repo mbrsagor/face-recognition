@@ -1,20 +1,17 @@
-# udacity-meals312
+# Face-recognition
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+> Python Face-recognition open CV based projct which human face recognition.
 
-## Ember basic command line
-###### Crete new project and run
-```
-ember new demoProject
-cd demoProject
-ember serve or ember s
-```
+### Prerequisites
+- Python 3.8
+- OpenCV
+
+Run the project on your local development mechine. Please follow the instructions.
+1st open your terminal/shell or command line.
+
 ```base
-localhost:4200
+git clone https://github.com/mbrsagor/face-recognition.git
+cd face-recognition
+virtualenv venv --python=python3.8
+source venv/bin/activate
 ```
-If you follow the command line hopefully project will create and run your local development server but 1st will be install `node.js` and `NPM` in your system.
-
-###### Check Ember all command.
-You may follow the command line `ember help` or `ember --help`
-
