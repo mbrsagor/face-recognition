@@ -1,6 +1,6 @@
 # Face-recognition
 
-> Python Face-recognition open CV based projct which human face recognition.
+> Python Face-recognition open CV-based project which human face recognition.
 
 ### Prerequisites
 - Python 3.8
