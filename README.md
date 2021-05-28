@@ -15,3 +15,6 @@ cd face-recognition
 virtualenv venv --python=python3.8
 source venv/bin/activate
 ```
+After that, run `index.py` file.
+
+<N:B:> The following steps will walk you thru installation on a Mac. I think linux should be similar.
