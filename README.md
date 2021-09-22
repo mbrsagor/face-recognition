@@ -1,6 +1,6 @@
 # Fast API
 
-> Python fast api for everyone
+> Python fast api CRUD operations for everyone
 
 ### Prerequisites
 - Python 3.8
@@ -14,3 +14,10 @@ cd fastApi
 virtualenv venv --python=python3.8
 source venv/bin/activate
 ```
+
+###### Run the project in your local development server:
+```
+uvicorn main:app --reload
+```
+
+Docs: http://127.0.0.1:8000/docs
