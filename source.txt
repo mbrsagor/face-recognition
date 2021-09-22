@@ -1,2 +1,0 @@
-https://www.mygreatlearning.com/blog/face-recognition
-https://stackabuse.com/facial-detection-in-python-with-opencv
