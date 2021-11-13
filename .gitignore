@@ -1,6 +1,5 @@
 .DS_Store
 .vscoe
 .idea
-
 venv
 __pycache__/
