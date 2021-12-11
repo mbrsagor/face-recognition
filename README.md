@@ -1,6 +1,6 @@
 # Fast API
 
-> Python fast api CRUD operations for everyone
+> Python fast api CRUD operations for everyone which the backend applicaiton use `fast-api` is a modern, fast (high-performance), web framework for building APIs with Python based on standard Python type hints.
 
 ### Prerequisites
 - Python 3.8
