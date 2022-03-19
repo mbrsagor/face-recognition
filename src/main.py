@@ -30,15 +30,25 @@ class Product(HashModel):
 @app.get('/')
 async def root():
     about_me = [
-        {"name": "Md.Bozlur Rosid Sagor", "nick_name": "Mbr Sagor", "work_at": "Circle Fintech Ltd.",
-         "position": "Software Engineer"}
+        {"name": "Md.Bozlur Rosid Sagor", "email": "brshagor.cse@gmial.com", "work_at": "Circle Fintech Ltd.",
+         "position": "Software Engineer", "whats_app": "+8801748880505"}
     ]
     return about_me
 
 
 @app.get('/products/')
 def products():
-    return Product.all_pks()
+    return [format(pk) for pk in Product.all_pks()]
+
+
+def format(pk: str):
+    product = Product.get(pk)
+    return {
+        'id': product.pk,
+        'name': product.name,
+        'price': product.price,
+        'quantity': product.quantity
+    }
 
 
 @app.post('/create-product/')
