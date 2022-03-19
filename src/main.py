@@ -2,9 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.encoders import jsonable_encoder
 
-from redis_om import get_redis_connection, HashModel
-
-from src.all_config import Settings
+from src.models import Product
 
 app = FastAPI()
 app.add_middleware(
@@ -13,24 +11,6 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*'],
 )
-
-settings = Settings()
-
-redis = get_redis_connection(
-    host=''.join(settings.host),
-    password=''.join(settings.password),
-    port=12277,
-    decode_responses=True
-)
-
-
-class Product(HashModel):
-    name: str
-    price: float
-    quantity = int
-
-    class Meta:
-        database = redis
 
 
 @app.get('/')
