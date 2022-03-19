@@ -17,10 +17,10 @@ app.add_middleware(
 settings = Settings()
 
 redis = get_redis_connection(
-    host=settings.host,
-    port=settings.port,
-    password=settings.password,
-    decode_responses=settings.decode_responses
+    host=''.join(settings.host),
+    password=''.join(settings.password),
+    port=12277,
+    decode_responses=True
 )
 
 
