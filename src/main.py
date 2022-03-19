@@ -4,6 +4,8 @@ from fastapi.encoders import jsonable_encoder
 
 from redis_om import get_redis_connection, HashModel
 
+from src.all_config import Settings
+
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -12,11 +14,13 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
+settings = Settings()
+
 redis = get_redis_connection(
-    host='redis-12277.c257.us-east-1-3.ec2.cloud.redislabs.com',
-    port=12277,
-    password='7tbDgQLyCAjIzSwzDkyIDakSr2PmUqna',
-    decode_responses=True
+    host=settings.host,
+    port=settings.port,
+    password=settings.password,
+    decode_responses=settings.decode_responses
 )
 
 
