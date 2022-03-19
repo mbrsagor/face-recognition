@@ -16,6 +16,16 @@ virtualenv venv --python=python3.8
 source venv/bin/activate
 ```
 
+> This project I used to redis cloud database.
+
+###### Then copy code from the ``example_config.py`` and create new file `all_config.py` then pasts
+
+-------------------------------------------
+```bash
+|--> example_config.py
+|--> all_config
+```
+
 ###### Run the project in your local development server:
 ```
 uvicorn src.main:app --reload
