@@ -5,6 +5,8 @@ from fastapi.encoders import jsonable_encoder
 from src.models import Product
 
 app = FastAPI()
+
+# Middleware to request transfer frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['http://localhost:3000'],
