@@ -1,48 +1,46 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Optional
+from fastapi.middleware.cors import CORSMiddleware
+from redis_om import get_redis_connection, HashModel
 
 app = FastAPI()
-fake_data = []
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['http://localhost:3000'],
+    allow_methods=['*'],
+    allow_headers=['*'],
+)
+
+redis = get_redis_connection(
+    host='redis-12277.c257.us-east-1-3.ec2.cloud.redislabs.com',
+    port=12277,
+    password='7tbDgQLyCAjIzSwzDkyIDakSr2PmUqna',
+    decode_responses=True
+)
 
 
-class Product(BaseModel):
-    id: int
+class Product(HashModel):
     name: str
     price: float
-    is_active: Optional[bool] = None
+    quantity = int
+
+    class Meta:
+        database = redis
 
 
-@app.get("/")
-def home():
+@app.get('/')
+async def root():
     about_me = [
-        {"name": "Md.Bozlur Rosid Sagor"},
-        {"nick_name": "Mbr Sagor"},
-        {"work_at": "Circle Fintech Ltd."},
-        {"position": "Software Engineer"}
+        {"name": "Md.Bozlur Rosid Sagor", "nick_name": "Mbr Sagor", "work_at": "Circle Fintech Ltd.",
+         "position": "Software Engineer"}
     ]
     return about_me
 
 
-@app.get("/product")
+@app.get('/products/')
 def products():
-    return fake_data
+    return Product.all_pks()
 
 
-@app.get("/product/{product_id}")
-def product_details(product_id: int):
-    product = product_id - 1
-    return fake_data[product]
-
-
-@app.post("/create_product")
-def add_new_product(product: Product):
-    fake_data.append(product.dict())
-    # Return the last object when `product` will create
-    return fake_data[-1]
-
-
-@app.delete("/delete_product/{product_id}")
-def delete_product(product_id: int):
-    fake_data.pop(product_id-1)
-    return {"success": "The product deleted successfully"}
+@app.post('/create-product/')
+def create_product(product: Product):
+    return product.save()
