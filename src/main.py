@@ -18,8 +18,8 @@ app.add_middleware(
 @app.get('/')
 async def root():
     about_me = [
-        {"name": "Md.Bozlur Rosid Sagor", "email": "brshagor.cse@gmial.com", "work_at": "Circle Fintech Ltd.",
-         "position": "Software Engineer", "whats_app": "+8801748880505"}
+        {"name": "Md.Bozlur Rosid Sagor", "email": "brshagor.cse@gmial.com", "work_at": "Texon Ltd.",
+         "position": "Software Engineer", "whatsapp": "+8801748880505"}
     ]
     return about_me
 

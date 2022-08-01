@@ -1,6 +1,6 @@
-# Fast API
+# Fast API Micro service
 
-> Python fast api CRUD operations for everyone which the backend application use `fast-api` is a modern, fast (high-performance), web framework for building APIs with Python based on standard Python type hints.
+> Python fast API `MICRO SERVICE` backend application use. FastAPI is a modern, fast (high-performance), web framework for building APIs with Python based on standard Python type hints.
 
 ### Prerequisites
 - Python 3.8
@@ -10,7 +10,7 @@ Run the project on your local development server. Please follow the instructions
 1st open your terminal/shell or command line.
 
 ```base
-git clone https://github.com/mbrsagor/fastApi.git
+git clone https://github.com/mbrsagor/fastApiMS.git
 cd fastApi
 virtualenv venv --python=python3.8
 source venv/bin/activate
