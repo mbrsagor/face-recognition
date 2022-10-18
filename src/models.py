@@ -2,6 +2,15 @@ from redis_om import HashModel
 from src.redis_db import redis
 
 
+class Cateogry(HashModel):
+    name: str
+    is_active: bool
+
+    class Meta:
+        database = redis
+
+
+
 class Product(HashModel):
     name: str
     price: float
