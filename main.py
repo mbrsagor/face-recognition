@@ -26,25 +26,21 @@ def get_all_items():
 
 @app.post('/create-item/', response_model=Item, status_code=status.HTTP_201_CREATED)
 def create_an_item(item: Item):
+    old_item = db.query(models.Item).filter(models.Item.name == item.name).first()
+    if old_item is not None:
+        resp = {
+            "status": False,
+            "message": "The item have already exists."
+        }
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=resp)
+
     new_item = models.Item(
         name=item.name,
         price=item.price,
         on_offer=item.on_offer,
-        description=item.description
+        description=item.description,
     )
-
-    old_item = db.query(models.Item).filter(item.name == item.name)
-    if old_item is not None:
-        resp = {
-            'status': False,
-            'message': 'The item have already exist.'
-        }
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=resp)
 
     db.add(new_item)
     db.commit()
-    resp = {
-        'status': True,
-        'message': 'Item created successfully done.'
-    }
-    return resp
+    return new_item
