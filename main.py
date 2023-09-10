@@ -7,6 +7,7 @@ from typing import List
 import models
 
 app = FastAPI()
+db = SessionLocal()
 
 
 class Item(BaseModel):  # Serializer
@@ -17,10 +18,8 @@ class Item(BaseModel):  # Serializer
     description: str
 
 
-db = SessionLocal()
-
-
 @app.get('/items/', response_model=List[Item], status_code=status.HTTP_200_OK)
-def get_all_items(item: Item):
+def get_all_items():
     items = db.query(models.Item).all()
     return items
+
