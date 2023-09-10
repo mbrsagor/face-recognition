@@ -1,6 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel
-from typing import Optional
+
+from database import SessionLocal
+from typing import List
+
+import models
 
 app = FastAPI()
 
@@ -12,30 +16,11 @@ class Item(BaseModel):  # Serializer
     on_offer: bool
     description: str
 
-    class Config:
-        orm_mode = True
+
+db = SessionLocal()
 
 
-@app.get('/items/')
-def get_items():
-    pass
-
-
-@app.get('/item/{id}/')
-def get_item(id: int):
-    pass
-
-
-@app.post('/create-item/')
-def create_item():
-    pass
-
-
-@app.put('/update-item/{id}')
-def update_item(id: int):
-    pass
-
-
-@app.delete('/delete-item/{id}')
-def delete_item(id: int):
-    pass
+@app.get('/items/', response_model=List[Item], status_code=status.HTTP_200_OK)
+def get_all_items(item: Item):
+    items = db.query(models.Item).all()
+    return items
