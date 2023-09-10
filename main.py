@@ -12,17 +12,30 @@ class Item(BaseModel):  # Serializer
     on_offer: bool
     description: str
 
-
-@app.get('/user/{name}')
-def call_name(name: str):
-    return {'message': f"Hello Mr. {name}"}
+    class Config:
+        orm_mode = True
 
 
-@app.put('/item/{item_id}/')
-def update_item(item_id: int, item: Item):
-    return {
-        'name': item.name,
-        'price': item.price,
-        'on_offer': item.on_offer,
-        'description': item.description
-    }
+@app.get('/items/')
+def get_items():
+    pass
+
+
+@app.get('/item/{id}/')
+def get_item(id: int):
+    pass
+
+
+@app.post('/create-item/')
+def create_item():
+    pass
+
+
+@app.put('/update-item/{id}')
+def update_item(id: int):
+    pass
+
+
+@app.delete('/delete-item/{id}')
+def delete_item(id: int):
+    pass
