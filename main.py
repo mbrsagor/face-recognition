@@ -44,3 +44,39 @@ def create_an_item(item: Item):
     db.add(new_item)
     db.commit()
     return new_item
+
+
+@app.get('/item/{id}/', response_model=Item, status_code=status.HTTP_200_OK)
+def get_an_item(id: int):
+    item = db.query(models.Item).filter(models.Item.id == id).first()
+    return item
+
+
+@app.put('/update-item/{id}', response_model=Item, status_code=status.HTTP_200_OK)
+def item_update(id: int, item: Item):
+    get_item = db.query(models.Item).filter(models.Item.id == id).first()
+    if get_item is not None:
+        get_item.name = item.name
+        get_item.price = item.price
+        get_item.on_offer = item.on_offer
+        get_item.description = item.description
+        db.commit()
+        return get_item
+    else:
+        resp = {
+            "status": False,
+            "message": "No item found this ID"
+        }
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=resp)
+
+
+@app.delete('/item-delete/{id}/')
+def item_delete(id: int):
+    item = db.query(models.Item).filter(models.Item.id == id).first()
+    db.delete(item)
+    db.commit()
+    resp = {
+        "status": True,
+        "message": "The item is deleted successfully."
+    }
+    return resp
