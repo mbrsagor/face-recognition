@@ -39,14 +39,15 @@ def get_single_post(id: int):
 @app.put('/update-post/{id}', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
 def update_post(id: int, blog: BlogSerializer):
     get_post = db.query(models.Blog).filter(models.Blog.id == id).first()
-    if get_post is not None:
-        get_post.title = blog.title,
-        get_post.is_publish = blog.is_publish,
-        get_post.content = blog.content
-        db.commit()
-        return get_post
-    else:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=id_not_found)
+    try:
+        if get_post is not None:
+            get_post.title = blog.title,
+            # get_post.is_publish = blog.is_publish,
+            get_post.content = blog.content
+            db.commit()
+            return get_post
+    except Exception as ex:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(ex))
 
 
 @app.delete('/post-delete/{id}/')
