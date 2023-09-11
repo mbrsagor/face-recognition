@@ -4,11 +4,41 @@ from database.database import SessionLocal
 from typing import List
 
 from models import models
-from serializers.serializers import BlogSerializer
 from utils.response import data_deleted, id_not_found
+from serializers.serializers import BlogSerializer, CategorySerializer
 
 app = FastAPI()
 db = SessionLocal()
+
+
+@app.get('/categories/', response_model=List[CategorySerializer], status_code=status.HTTP_200_OK)
+async def category_list():
+    categories = db.query(models.Category).all()
+    if not categories:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No category found!")
+    else:
+        return categories
+
+
+@app.post('/create-category/', response_model=CategorySerializer, status_code=status.HTTP_201_CREATED)
+async def create_category(serializer: CategorySerializer):
+    category = models.Category(
+        name=serializer.name
+    )
+    db.add(category)
+    db.commit()
+    return category
+
+
+@app.delete('/delete-category/{id}/')
+def delete_category(id: int):
+    category = db.query(models.Category).filter(models.Category.id == id).first()
+    if category is not None:
+        db.delete(category)
+        db.commit()
+        return data_deleted()
+    else:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=id_not_found)
 
 
 @app.get('/posts/', response_model=List[BlogSerializer], status_code=status.HTTP_200_OK)

@@ -6,3 +6,8 @@ class BlogSerializer(BaseModel):
     title: str
     is_publish: bool
     content: str
+
+
+class CategorySerializer(BaseModel):
+    id: int
+    name: str
