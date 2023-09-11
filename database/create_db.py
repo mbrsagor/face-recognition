@@ -1,5 +1,5 @@
 from database import BASE, engine
-from models import Item, Blog
+from models.models import Blog
 
 print("Creating Database")
 

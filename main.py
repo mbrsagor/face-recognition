@@ -1,30 +1,23 @@
 from fastapi import FastAPI, status, HTTPException
-from pydantic import BaseModel
 
-from database import SessionLocal
+from database.database import SessionLocal
 from typing import List
 
-import models
+from models import models
+from serializers.serializers import BlogSerializer
 
 app = FastAPI()
 db = SessionLocal()
 
 
-class Blog(BaseModel):  # Serializer
-    id: int
-    title: str
-    is_publish: bool
-    content: str
-
-
-@app.get('/posts/', response_model=List[Blog], status_code=status.HTTP_200_OK)
+@app.get('/posts/', response_model=List[BlogSerializer], status_code=status.HTTP_200_OK)
 def blog_posts():
     posts = db.query(models.Blog).all()
     return posts
 
 
-@app.post('/create-post/', response_model=Blog, status_code=status.HTTP_201_CREATED)
-def create_blog_post(blog: Blog):
+@app.post('/create-post/', response_model=BlogSerializer, status_code=status.HTTP_201_CREATED)
+def create_blog_post(blog: BlogSerializer):
     new_post = models.Blog(
         title=blog.title,
         is_publish=blog.is_publish,
@@ -36,14 +29,14 @@ def create_blog_post(blog: Blog):
     return new_post
 
 
-@app.get('/post/{id}/', response_model=Blog, status_code=status.HTTP_200_OK)
+@app.get('/post/{id}/', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
 def get_single_post(id: int):
     post = db.query(models.Blog).filter(models.Blog.id == id).first()
     return post
 
 
-@app.put('/update-post/{id}', response_model=Blog, status_code=status.HTTP_200_OK)
-def update_post(id: int, blog: Blog):
+@app.put('/update-post/{id}', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
+def update_post(id: int, blog: BlogSerializer):
     get_post = db.query(models.Blog).filter(models.Blog.id == id).first()
     if get_post is not None:
         get_post.title = blog.title,
