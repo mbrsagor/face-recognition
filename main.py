@@ -18,38 +18,36 @@ class Item(BaseModel):  # Serializer
     description: str
 
 
-@app.get('/items/', response_model=List[Item], status_code=status.HTTP_200_OK)
-def get_all_items():
-    items = db.query(models.Item).all()
-    return items
+class Blog(BaseModel):
+    id: int
+    title: str
+    is_publish: bool
+    content: str
 
 
-@app.post('/create-item/', response_model=Item, status_code=status.HTTP_201_CREATED)
-def create_an_item(item: Item):
-    old_item = db.query(models.Item).filter(models.Item.name == item.name).first()
-    if old_item is not None:
-        resp = {
-            "status": False,
-            "message": "The item have already exists."
-        }
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=resp)
+@app.get('/posts/', response_model=List[Blog], status_code=status.HTTP_200_OK)
+def blog_posts():
+    posts = db.query(models.Blog).all()
+    return posts
 
-    new_item = models.Item(
-        name=item.name,
-        price=item.price,
-        on_offer=item.on_offer,
-        description=item.description,
+
+@app.post('/create-post/', response_model=Blog, status_code=status.HTTP_201_CREATED)
+def create_blog_post(blog: Blog):
+    new_post = models.Blog(
+        title=blog.title,
+        is_publish=blog.is_publish,
+        content=blog.content
     )
 
-    db.add(new_item)
+    db.add(new_post)
     db.commit()
-    return new_item
+    return new_post
 
 
-@app.get('/item/{id}/', response_model=Item, status_code=status.HTTP_200_OK)
-def get_an_item(id: int):
-    item = db.query(models.Item).filter(models.Item.id == id).first()
-    return item
+@app.get('/post/{id}/', response_model=Blog, status_code=status.HTTP_200_OK)
+def get_single_post(id: int):
+    post = db.query(models.Blog).filter(models.Blog.id == id).first()
+    return post
 
 
 @app.put('/update-item/{id}', response_model=Item, status_code=status.HTTP_200_OK)
