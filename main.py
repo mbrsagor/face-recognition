@@ -5,6 +5,7 @@ from typing import List
 
 from models import models
 from serializers.serializers import BlogSerializer
+from utils.response import data_deleted, id_not_found
 
 app = FastAPI()
 db = SessionLocal()
@@ -45,17 +46,15 @@ def update_post(id: int, blog: BlogSerializer):
         db.commit()
         return get_post
     else:
-        resp = {'status': False, 'message': 'No post found this ID'}
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=resp)
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=id_not_found)
 
 
 @app.delete('/post-delete/{id}/')
 def post_delete(id: int):
     post = db.query(models.Blog).filter(models.Blog.id == id).first()
-    db.delete(post)
-    db.commit()
-    resp = {
-        "status": True,
-        "message": "The post is deleted successfully."
-    }
-    return resp
+    if post is not None:
+        db.delete(post)
+        db.commit()
+        return data_deleted()
+    else:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=id_not_found)
