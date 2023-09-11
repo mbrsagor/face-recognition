@@ -10,8 +10,14 @@ app = FastAPI()
 db = SessionLocal()
 
 
-@app.get('/categories/', response_model=List[CategorySerializer], status_code=status.HTTP_200_OK)
+@app.get('/api/categories/', response_model=List[CategorySerializer], status_code=status.HTTP_200_OK)
 async def category_list():
+    """
+    Name: Category listview API
+    URL: /api/categories
+    Method: GET
+    :return:
+    """
     categories = db.query(models.Category).all()
     if not categories:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No category found!")
@@ -19,8 +25,15 @@ async def category_list():
         return categories
 
 
-@app.post('/create-category/', response_model=CategorySerializer, status_code=status.HTTP_201_CREATED)
+@app.post('/api/create-category/', response_model=CategorySerializer, status_code=status.HTTP_201_CREATED)
 async def create_category(serializer: CategorySerializer):
+    """
+    Name: create new category API
+    URL: /api/create-category/
+    Method: POST
+    :param serializer:
+    :return:
+    """
     category = models.Category(
         name=serializer.name
     )
@@ -29,8 +42,16 @@ async def create_category(serializer: CategorySerializer):
     return category
 
 
-@app.put('/category-update/{id}', response_model=CategorySerializer, status_code=status.HTTP_200_OK)
+@app.put('api//category-update/{id}/', response_model=CategorySerializer, status_code=status.HTTP_200_OK)
 async def category_update(id: int, serializer: CategorySerializer):
+    """
+    Name: category update API
+    URL: /api/category-update/id/
+    Method: GET
+    :param id:
+    :param serializer:
+    :return:
+    """
     category = db.query(models.Category).filter(models.Category.id == id).first()
     if category is not None:
         category.name = serializer.name
@@ -40,8 +61,15 @@ async def category_update(id: int, serializer: CategorySerializer):
         raise "Something went to wrong while updating the category."
 
 
-@app.delete('/delete-category/{id}/')
-def delete_category(id: int):
+@app.delete('/api/delete-category/{id}/')
+async def delete_category(id: int):
+    """
+    Name: Category delete API
+    URL: /api/delete-category/id/
+    Method: DELETE
+    :param id:
+    :return:
+    """
     category = db.query(models.Category).filter(models.Category.id == id).first()
     if category is not None:
         db.delete(category)
@@ -51,14 +79,27 @@ def delete_category(id: int):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=id_not_found)
 
 
-@app.get('/posts/', response_model=List[BlogSerializer], status_code=status.HTTP_200_OK)
-def blog_posts():
+@app.get('/api/posts/', response_model=List[BlogSerializer], status_code=status.HTTP_200_OK)
+async def blog_posts():
+    """
+    Name: Category list API
+    URL: /api/posts/
+    Method: GET
+    :return:
+    """
     posts = db.query(models.Blog).all()
     return posts
 
 
-@app.post('/create-post/', response_model=BlogSerializer, status_code=status.HTTP_201_CREATED)
-def create_blog_post(blog: BlogSerializer):
+@app.post('/api/create-post/', response_model=BlogSerializer, status_code=status.HTTP_201_CREATED)
+async def create_blog_post(blog: BlogSerializer):
+    """
+    Name: Blog post create API
+    URL: /api/create-post
+    Method: POST
+    :param blog:
+    :return:
+    """
     new_post = models.Blog(
         title=blog.title,
         is_publish=blog.is_publish,
@@ -70,14 +111,29 @@ def create_blog_post(blog: BlogSerializer):
     return new_post
 
 
-@app.get('/post/{id}/', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
-def get_single_post(id: int):
+@app.get('/api/post/{id}/', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
+async def get_single_post(id: int):
+    """
+    Name: Blog post details or single API
+    URL: /api/post/id/
+    Method: GET
+    :param id:
+    :return:
+    """
     post = db.query(models.Blog).filter(models.Blog.id == id).first()
     return post
 
 
-@app.put('/update-post/{id}', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
-def update_post(id: int, serializer: BlogSerializer):
+@app.put('/api/update-post/{id}/', response_model=BlogSerializer, status_code=status.HTTP_200_OK)
+async def update_post(id: int, serializer: BlogSerializer):
+    """
+    Name: Blog post update API
+    URL: /api/update-post/id/
+    Method: PUT
+    :param id:
+    :param serializer:
+    :return:
+    """
     get_post = db.query(models.Blog).filter(models.Blog.id == id).first()
     try:
         if get_post is not None:
@@ -91,7 +147,14 @@ def update_post(id: int, serializer: BlogSerializer):
 
 
 @app.delete('/post-delete/{id}/')
-def post_delete(id: int):
+async def post_delete(id: int):
+    """
+    Name: Blog post delete API.
+    URL: /api/post-delete/id/
+    Method: DELETE
+    :param id:
+    :return:
+    """
     post = db.query(models.Blog).filter(models.Blog.id == id).first()
     if post is not None:
         db.delete(post)
