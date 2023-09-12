@@ -1,8 +1,9 @@
-from fastapi import FastAPI, status, HTTPException
+from fastapi import FastAPI, status, HTTPException, Response
 from typing import List
 
 from models import models
 from database.database import SessionLocal
+from utils.messages import CATEGORY, CATEGORY_UPDATE_ERROR_MSG
 from utils.response import data_deleted, id_not_found
 from serializers.serializers import BlogSerializer, CategorySerializer
 
@@ -20,7 +21,7 @@ async def category_list():
     """
     categories = db.query(models.Category).all()
     if not categories:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="No category found!")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=CATEGORY)
     else:
         return categories
 
@@ -58,7 +59,7 @@ async def category_update(id: int, serializer: CategorySerializer):
         db.commit()
         return category
     else:
-        raise "Something went to wrong while updating the category."
+        raise CATEGORY_UPDATE_ERROR_MSG
 
 
 @app.delete('/api/delete-category/{id}/')
