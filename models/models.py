@@ -6,6 +6,16 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy import Column, String, Integer, Boolean, Text, ForeignKey
 
 
+class Tag(Base):
+    __tablename__ = 'tags'
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, index=True)
+
+    def __repr__(self):
+        return self.name
+
+
 class Category(BASE):
     __tablename__ = 'categories'
     id = Column(Integer, primary_key=True)
