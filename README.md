@@ -15,3 +15,5 @@
 source venv/bin/activated
 python create_db.py
 ```
+
+## Happy coding :wink:
